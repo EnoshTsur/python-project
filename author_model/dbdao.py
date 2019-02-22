@@ -208,7 +208,7 @@ class AuthorDBDAO:
         try:
             self.cursor.execute(sql)
             results = self.cursor.fetchall()
-            # No Data
+            # No Data case
             if not results:
                 print(ErrorMsgUtils.no_data_available())
                 return
@@ -233,7 +233,8 @@ class AuthorDBDAO:
             print(ErrorMsgUtils.type_error(author_id, var_type=int))
             return
 
-        sql = f"SELECT BOOKS.* FROM AUTHOR, BOOKS WHERE AUTHOR.ID = {author_id}"
+        sql = f"SELECT BOOKS.* FROM AUTHOR, BOOKS " \
+              f"WHERE AUTHOR.ID = {author_id} AND BOOKS.AUTHOR_ID = {author_id}"
         # Execution
         try:
             self.cursor.execute(sql)

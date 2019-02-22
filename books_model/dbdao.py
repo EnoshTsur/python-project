@@ -172,6 +172,12 @@ class BooksDBAO:
             print(ErrorMsgUtils.type_error(book, var_type=Book))
             return
 
+        # Validate existence
+        book_to_update = self.find_by_id(book.id)
+        if book_to_update is None:
+            print(ErrorMsgUtils.does_not_exists(table_name='Book', var=book.id))
+            return
+
         # Execution
         sql = f"UPDATE BOOKS SET NAME = '{book.name}', " \
               f"PRICE = '{book.price}' " \
